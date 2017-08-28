@@ -430,7 +430,11 @@ void play_macro(const uint8_t code)
 
 void inline send_tapkey(const uint8_t code)
 {
-	if ((code > 0) && (code <= MAX_NKRO_CODE))
+	if(code >= SCANCODE_M1 && code <= SCANCODE_M14)
+	{
+		play_macro(code);
+	}
+	else if ((code > 0) && (code <= MAX_NKRO_CODE))
 	{
 		queue_autokeys(code, g_modifier_state);
 	}

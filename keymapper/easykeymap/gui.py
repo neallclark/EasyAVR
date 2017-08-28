@@ -307,10 +307,9 @@ class GUI(object):
         # frame to hold the editing controls
         modframe = Frame(self.root)
         Label(modframe, text="Set: ").pack(side=LEFT)
-        temp = sorted(scancodes.keys())
-        temp2 = [x for x in temp if not x.startswith("SCANCODE_")]
+        sortedKeys = sorted(scancodes.keys())
         setbox = Combobox(modframe, width=40, height=40)
-        setbox['values'] = temp
+        setbox['values'] = sortedKeys
         setbox['textvariable'] = self.bindvar
         setbox.state(['readonly'])
         setbox.bind('<<ComboboxSelected>>', self.updatekey)
@@ -324,7 +323,7 @@ class GUI(object):
         setbox.pack(side=LEFT)
         self.modewidget = setbox
         setbox = Combobox(modframe, width=40, height=40)
-        setbox['values'] = temp2
+        setbox['values'] = sortedKeys
         setbox['textvariable'] = self.actionvar
         setbox.state(['readonly', 'disabled'])
         setbox.bind('<<ComboboxSelected>>', self.updateaction)

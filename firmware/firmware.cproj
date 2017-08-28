@@ -200,7 +200,7 @@
       <Value>ARCH=ARCH_AVR8</Value>
       <Value>F_CPU=16000000UL</Value>
       <Value>F_USB=16000000UL</Value>
-      <Value>BOARD_SIZE_COSTAR</Value>
+      <Value>BOARD_SIZE_SIXTY</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
