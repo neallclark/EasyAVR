@@ -56,6 +56,8 @@ typedef enum {
 extern uint8_t g_modifier_state;
 extern uint8_t g_report_buffer[HID_ROLLOVER_SIZE+1];
 extern uint8_t g_mousebutton_state;
+extern int8_t  g_mousewheel_state_V;
+extern int8_t  g_mousewheel_state_H;
 extern int8_t g_mouse_req_X;
 extern int8_t g_mouse_req_Y;
 extern uint16_t g_media_key;

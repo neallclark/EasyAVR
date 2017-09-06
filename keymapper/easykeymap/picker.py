@@ -290,6 +290,10 @@ class Picker(object):
         Selector(rowframe, self.main, 4, "SCANCODE_MOUSEYD")
         Selector(rowframe, self.main, 4, "SCANCODE_MOUSEYU")
         Selector(rowframe, self.main, 4, "SCANCODE_MOUSEXR")
+        Selector(rowframe, self.main, 4, "SCANCODE_MOUSEWHEELUP"),
+        Selector(rowframe, self.main, 4, "SCANCODE_MOUSEWHEELDOWN")
+        Selector(rowframe, self.main, 4, "SCANCODE_MOUSEWHEELLEFT"),
+        Selector(rowframe, self.main, 4, "SCANCODE_MOUSEWHEELRIGHT")        
         Spacer(rowframe, 12, 4)
 
         rowframe = Frame(self.toplevel,

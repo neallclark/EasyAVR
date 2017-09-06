@@ -102,7 +102,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] =
 	 *   Buttons: 3
 	 *   Absolute screen coordinates: false
 	 */
-	HID_DESCRIPTOR_MOUSE(-127, 127, 0, 0, 3, false)
+	HID_DESCRIPTOR_WHEELED_MOUSE(-127, 127, 0, 0, 3, false)
 };
 
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM MediaReport[] =
@@ -1053,6 +1053,8 @@ bool CALLBACK_HID_Device_CreateHIDReport(USB_ClassInfo_HID_Device_t* const HIDIn
 		MouseReport->Button = g_mousebutton_state;
 		MouseReport->X = g_mouse_report_X;
 		MouseReport->Y = g_mouse_report_Y;
+		MouseReport->VerticalWheelMovement = g_mousewheel_report_V;
+		MouseReport->HorizontalWheelMovement = g_mousewheel_report_H;
 		*ReportSize = sizeof(USB_MouseReport_Data_t);
 		if (g_mouse_active)
 			return true;
