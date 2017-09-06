@@ -55,7 +55,10 @@ SCANCODE_MOUSEYD           Move mouse pointer down
 SCANCODE_MOUSEYU           Move mouse pointer up
                            (Double-tap the mouse keys to move the cursor faster.
                            Triple-tap for even more speed, and so on.)
-
+SCANCODE_MOUSEWHEELUP      Turn mouse wheel up
+SCANCODE_MOUSEWHEELDOWN    Turn mouse wheel down
+SCANCODE_MOUSEWHEELLEFT    Turn mouse wheel left
+SCANCODE_MOUSEWHEELRIGHT   Turn mouse wheel right
 SCANCODE_POWER             Power down the system
 SCANCODE_SLEEP             Put the system to sleep
 SCANCODE_WAKE              Wake the system from sleep state

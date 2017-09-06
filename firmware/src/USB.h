@@ -59,7 +59,7 @@
 /** Endpoint address of the Mouse HID reporting IN endpoint. */
 #define MOUSE_INTERFACE (0x03)
 #define MOUSE_IN_EPADDR           (ENDPOINT_DIR_IN | 4)
-#define HID_EPSIZE_MOUSE (0x03)
+#define HID_EPSIZE_MOUSE (0x05)
 
 #define TOTAL_INTERFACES_ALL (0x04)
 #define TOTAL_INTERFACES_BOOT (0x01)

@@ -112,6 +112,8 @@ uint8_t g_rollover_error;
 uint8_t g_fn_buffer[FN_BUFFER_SIZE+1];
 int8_t g_fn_buffer_length;
 uint8_t g_mousebutton_state;
+int8_t g_mousewheel_state_V;
+int8_t g_mousewheel_state_H;
 int8_t g_mouse_req_X;
 int8_t g_mouse_req_Y;
 uint16_t g_media_key;
@@ -323,6 +325,31 @@ void inline unset_mousebutton(const uint8_t code)
 {
 	const uint8_t i = (code - SCANCODE_MOUSE1);
 	g_mousebutton_state &= ~(pgm_read_byte(&MOUSEBUTTON_MAP[i].mask));
+}
+
+void inline set_mousewheel(const uint8_t code)
+{
+	switch(code)
+	{
+		case SCANCODE_MOUSEWHEELDOWN:
+			g_mousewheel_state_V = -1;
+			break;
+		case SCANCODE_MOUSEWHEELUP:
+			g_mousewheel_state_V = 1;
+			break;
+		case SCANCODE_MOUSEWHEELLEFT:
+			g_mousewheel_state_H = -1;
+			break;
+		case SCANCODE_MOUSEWHEELRIGHT:
+			g_mousewheel_state_H = 1;
+			break;
+	}
+}
+
+void inline unset_mousewheel(const uint8_t code)
+{
+	g_mousewheel_state_V = 0;
+	g_mousewheel_state_H = 0;
 }
 
 void init_keymap(void)
@@ -829,6 +856,12 @@ void handle_code_actuate(const uint8_t code, const uint8_t action, const uint8_t
 		if ((g_mouse_active == 0) || (g_mouse_multiply < g_double_tap_repeat))
 			g_mouse_multiply = g_double_tap_repeat;
 		break;
+	case SCANCODE_MOUSEWHEELDOWN:
+	case SCANCODE_MOUSEWHEELUP:
+	case SCANCODE_MOUSEWHEELLEFT:
+	case SCANCODE_MOUSEWHEELRIGHT:
+		set_mousewheel(code);
+		break;
 	case SCANCODE_M1:
 	case SCANCODE_M2:
 	case SCANCODE_M3:
@@ -1089,6 +1122,12 @@ void handle_code_deactuate(const uint8_t code, const uint8_t action, const uint8
 		break;
 	case SCANCODE_MOUSEYD:
 		g_mouse_req_Y--;
+		break;
+	case SCANCODE_MOUSEWHEELDOWN:
+	case SCANCODE_MOUSEWHEELUP:
+	case SCANCODE_MOUSEWHEELLEFT:
+	case SCANCODE_MOUSEWHEELRIGHT:
+		unset_mousewheel(code);
 		break;
 	case SCANCODE_M1:
 	case SCANCODE_M2:

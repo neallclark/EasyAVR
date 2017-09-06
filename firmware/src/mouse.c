@@ -39,6 +39,9 @@
 #include "nvm.h"
 #include "mouse.h"
 
+#define MOUSE_WHEEL_DIVISOR 2
+#define MOUSE_WHEEL_SPEED 1
+
 int8_t g_mouse_report_X;
 int8_t g_mouse_report_Y;
 uint8_t g_mouse_active;
@@ -46,6 +49,9 @@ uint8_t g_mouse_service;
 uint8_t g_cumulative_count;
 uint8_t g_slot;
 uint8_t g_mouse_multiply;
+uint8_t g_mousewheel_report_V;
+uint8_t g_mousewheel_report_H;
+uint8_t g_mousewheel_divisor_counter = 0;
 
 void init_mouse(void)
 {
@@ -88,9 +94,43 @@ void update_mouse(void)
 		g_slot = MOUSE_CYCLES;
 	}
 	
+	handle_mouse_wheel();
+	
 	/* We have seen that the USB has taken a report */
 	if (!g_mouse_service)
 		g_mouse_service = 1;
+}
+
+/* Handles updating the horizontal and vertical mouse wheel state */
+void handle_mouse_wheel()
+{
+	if(g_mousewheel_state_V != 0)
+	{
+		g_mousewheel_report_V += MOUSE_WHEEL_SPEED * g_mousewheel_state_V;
+		
+		if(++g_mousewheel_divisor_counter == MOUSE_WHEEL_DIVISOR)
+		{
+			g_mousewheel_divisor_counter = 0;
+			g_mousewheel_report_V = 0;
+		}
+	}
+	
+	if(g_mousewheel_state_H != 0)
+	{
+		g_mousewheel_report_H += MOUSE_WHEEL_SPEED * g_mousewheel_state_H;
+
+		if(++g_mousewheel_divisor_counter == MOUSE_WHEEL_DIVISOR)
+		{
+			g_mousewheel_divisor_counter = 0;
+			g_mousewheel_report_H = 0;
+		}
+	}
+	
+	if(g_mousewheel_state_V == 0)
+		g_mousewheel_report_V = 0;	
+		
+	if(g_mousewheel_state_H == 0)		
+		g_mousewheel_report_H = 0;
 }
 
 /* Calculate the requested X or Y value for the current USB mouse update slot.

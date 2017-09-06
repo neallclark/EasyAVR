@@ -32,9 +32,12 @@ extern int8_t g_mouse_report_Y;
 extern uint8_t g_mouse_active;
 extern uint8_t g_mouse_service;
 extern uint8_t g_mouse_multiply;
+extern uint8_t g_mousewheel_report_V;
+extern uint8_t g_mousewheel_report_H;
 
 void init_mouse(void);
 void update_mouse(void);
 int8_t mouse_cycle(uint16_t total_cycle_request);
+void handle_mouse_wheel(void);
 
 #endif /* MOUSE_H_ */
